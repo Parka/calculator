@@ -1,7 +1,8 @@
 import * as ReactDOM from 'react-dom';
+import Main from './Main';
 
 function render() {
-  ReactDOM.render(<h2>Hello from React!</h2>, document.body);
+  ReactDOM.render(<Main />, document.body);
 }
 
 render();

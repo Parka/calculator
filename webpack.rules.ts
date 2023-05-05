@@ -1,4 +1,5 @@
 import type { ModuleOptions } from 'webpack';
+import path from 'path';
 
 export const rules: Required<ModuleOptions>['rules'] = [
   // Add support for native node modules
@@ -27,5 +28,5 @@ export const rules: Required<ModuleOptions>['rules'] = [
         transpileOnly: true,
       },
     },
-  },
+  }
 ];
