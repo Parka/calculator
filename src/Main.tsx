@@ -24,12 +24,15 @@ const KEY_MAP: Record<string, string> = {
   Escape: 'C',
 }
 
+const getMappedKey = (key: string) => KEY_MAP[key] || key
+
 const Main = () =>{
   const [accumulator, setAccumulator] = useState(0)
   const [current, setCurrent] = useState('0')
   const [operation, setOperation] = useState<string>(null)
   const [newNumberFlag, setNewNumberFlag] = useState(false)
-  
+  const [pressed, setPressed] = useState<Set<string>>(new Set())
+
   const onClick = useCallback((pressed: string) => {
     if(!newNumberFlag && pressed === "Backspace") {
       setCurrent(
@@ -105,18 +108,33 @@ const Main = () =>{
   }, [accumulator, setAccumulator, current, setCurrent, operation, setOperation, newNumberFlag, setNewNumberFlag])
 
   useEffect(() => {
-    const handleKey = (e:KeyboardEvent) => onClick(KEY_MAP[e.key] || e.key)
-    document.body.addEventListener("keyup", handleKey )
+    const handleKeyUp = (e:KeyboardEvent) => {
+      const key = getMappedKey(e.key)
+      const newPressed = new Set(pressed)
+      newPressed.delete(key)
+      setPressed(newPressed)
+      onClick(key)
+    }
+    const handleKeyDown = (e:KeyboardEvent) => {
+      const key = getMappedKey(e.key)
+      const newPressed = new Set(pressed)
+      newPressed.add(key)
+      setPressed(newPressed)
+    }
+
+    document.body.addEventListener("keyup", handleKeyUp )
+    document.body.addEventListener("keydown", handleKeyDown )
   
     return () => {
-      document.body.removeEventListener("keyup", handleKey)
+      document.body.removeEventListener("keyup", handleKeyUp)
+      document.body.removeEventListener("keydown", handleKeyDown)
     }
-  }, [onClick])
+  }, [onClick, pressed, setPressed])
 
   return (
   <main>
     <h2 className="text-3xl text-blue-700 p-2 h-16 text-right">{current}</h2>
-    <Keyboard onClick={onClick}/>
+    <Keyboard onClick={onClick} pressed={pressed}/>
   </main>
 )};
 
