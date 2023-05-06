@@ -10,10 +10,10 @@ const OPERATIONS: Record<string, OperationFunction> = {
 }
 
 const PERCENTAGE_OPERATIONS: Record<string, OperationFunction> = {
-  ['+']: (a, b)=> a * (1 + b/100),
-  ['-']: (a, b)=> a * (1 - b/100),
-  ['*']: (a, b)=> a * (b/100),
-  ['/']: (a, b)=> a / (b/100),
+  ['+']: (a, b)=> (a + a * b/100),
+  ['-']: (a, b)=> (a - a * b/100),
+  ['*']: (a, b)=> (a * b)/100,
+  ['/']: (a, b)=> (a / b)/100,
 }
 
 const Main = () =>{
