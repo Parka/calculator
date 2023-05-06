@@ -132,8 +132,8 @@ const Main = () =>{
   }, [onClick, pressed, setPressed])
 
   return (
-  <main>
-    <h2 className="text-3xl text-blue-700 p-2 h-16 text-right">{current}</h2>
+  <main className="flex justify-between flex-col h-screen">
+    <h2 className="text-5xl text-gray-900 p-2 h-17 text-right w-screen overflow-auto">{current}</h2>
     <Keyboard onClick={onClick} pressed={pressed}/>
   </main>
 )};
