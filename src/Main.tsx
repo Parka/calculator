@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import Keyboard from "./components/Keyboard";
 
 type OperationFunction = (a:number, b:number) => number;
@@ -16,14 +16,29 @@ const PERCENTAGE_OPERATIONS: Record<string, OperationFunction> = {
   ['/']: (a, b)=> (a / b)/100,
 }
 
+const KEY_MAP: Record<string, string> = {
+  Enter: '=',
+  ' ': '=',
+  c: 'C',
+  Delete: 'C',
+  Escape: 'C',
+}
+
 const Main = () =>{
   const [accumulator, setAccumulator] = useState(0)
   const [current, setCurrent] = useState('0')
   const [operation, setOperation] = useState<string>(null)
   const [newNumberFlag, setNewNumberFlag] = useState(false)
   
-  const onClick = (pressed: string) => {
-    console.log(pressed)
+  const onClick = useCallback((pressed: string) => {
+    if(!newNumberFlag && pressed === "Backspace") {
+      setCurrent(
+        current.length > 1
+          ? current.slice(0, -1)
+          : '0'
+      )
+    }
+
     if((newNumberFlag || current === '0') && pressed === '.')
       pressed = '0.'
 
@@ -51,7 +66,10 @@ const Main = () =>{
       return
     }
 
-    if(pressed === 'C') {
+    if(
+      pressed === 'C' ||
+      (newNumberFlag && pressed === "Backspace")
+    ) {
       setOperation(null)
       setAccumulator(0)
       setCurrent('0')
@@ -84,7 +102,16 @@ const Main = () =>{
       setNewNumberFlag(true)
       return
     }
-  }
+  }, [accumulator, setAccumulator, current, setCurrent, operation, setOperation, newNumberFlag, setNewNumberFlag])
+
+  useEffect(() => {
+    const handleKey = (e:KeyboardEvent) => onClick(KEY_MAP[e.key] || e.key)
+    document.body.addEventListener("keyup", handleKey )
+  
+    return () => {
+      document.body.removeEventListener("keyup", handleKey)
+    }
+  }, [onClick])
 
   return (
   <main>
