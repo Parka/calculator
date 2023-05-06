@@ -27,7 +27,7 @@ const Keyboard = ({onClick, ...props}: Props) => {
       <Button onClick={()=> onClick("3")}>3</Button>
       <Button onClick={()=> onClick("+")} variant="orange">➕</Button>
       <Button onClick={()=> onClick("0")} className="col-span-2">0</Button>
-      <Button onClick={()=> onClick(",")}>,</Button>
+      <Button onClick={()=> onClick(".")}>,</Button>
       <Button onClick={()=> onClick("=")} variant="orange">🟰</Button>
     </div>
   );
