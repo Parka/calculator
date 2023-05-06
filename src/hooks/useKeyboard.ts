@@ -1,16 +1,12 @@
 import { useEffect, useState } from "react";
-
-const KEY_MAP: Record<string, string> = {
-  Enter: "=",
-  " ": "=",
-  c: "C",
-  Delete: "C",
-  Escape: "C",
-};
-
-const getMappedKey = (key: string) => KEY_MAP[key] || key;
+import { getMappedKey } from "../config/KEYS";
 
 type Props = (key: string) => void;
+
+const EVENTS = {
+  KEY_UP: "keyup",
+  KEY_DOWN: "keydown",
+};
 
 const useKeyboard = (onClick: Props) => {
   const [pressed, setPressed] = useState<Set<string>>(new Set());
@@ -30,12 +26,12 @@ const useKeyboard = (onClick: Props) => {
       setPressed(newPressed);
     };
 
-    document.body.addEventListener("keyup", handleKeyUp);
-    document.body.addEventListener("keydown", handleKeyDown);
+    document.body.addEventListener(EVENTS.KEY_UP, handleKeyUp);
+    document.body.addEventListener(EVENTS.KEY_DOWN, handleKeyDown);
 
     return () => {
-      document.body.removeEventListener("keyup", handleKeyUp);
-      document.body.removeEventListener("keydown", handleKeyDown);
+      document.body.removeEventListener(EVENTS.KEY_UP, handleKeyUp);
+      document.body.removeEventListener(EVENTS.KEY_DOWN, handleKeyDown);
     };
   }, [onClick, pressed, setPressed]);
 
