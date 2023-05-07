@@ -13,6 +13,7 @@ const useKeyboard = (onClick: Props) => {
 
   useEffect(() => {
     const handleKeyUp = (e: KeyboardEvent) => {
+      e.preventDefault();
       const key = getMappedKey(e.key);
       const newPressed = new Set(pressed);
       newPressed.delete(key);
@@ -20,6 +21,7 @@ const useKeyboard = (onClick: Props) => {
       onClick(key);
     };
     const handleKeyDown = (e: KeyboardEvent) => {
+      e.preventDefault();
       const key = getMappedKey(e.key);
       const newPressed = new Set(pressed);
       newPressed.add(key);
