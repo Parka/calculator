@@ -24,7 +24,7 @@ const Button: FC<Props> = ({
         text-3xl bg-blend-darken
         outline outline-1 outline-offset-0 outline-gray-400
         hover:shadow-inner active:bg-slate-300 active:drop-shadow-none
-        ${active ? "bg-slate-300" : ""}
+        ${active ? "bg-slate-300 drop-shadow-none" : ""}
         ${VARIANTS[variant]}
         ${className}
       `}
