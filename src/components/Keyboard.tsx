@@ -2,6 +2,11 @@ import React from "react";
 import Button from "./Button";
 import useKeyboard from "../hooks/useKeyboard";
 import KEYS from "../config/KEYS";
+import equals from '../assets/img/equals.svg';
+import division from '../assets/img/division.svg';
+import minus from '../assets/img/minus.svg';
+import multiply from '../assets/img/multiply.svg';
+import plus from '../assets/img/plus.svg';
 
 type Props = {
   onClick: (key: string) => void;
@@ -33,11 +38,12 @@ const Keyboard = ({ onClick }: Props) => {
         %
       </Button>
       <Button
+        className="flex justify-center items-center"
         active={pressed.has(KEYS.DIVIDE)}
         onClick={() => onClick(KEYS.DIVIDE)}
         variant="orange"
       >
-        ➗
+        <img className="w-6" src={division}/>
       </Button>
       <Button
         active={pressed.has(KEYS.NUMBER_7)}
@@ -58,11 +64,12 @@ const Keyboard = ({ onClick }: Props) => {
         9
       </Button>
       <Button
+        className="flex justify-center items-center"
         active={pressed.has(KEYS.MULTIPLY)}
         onClick={() => onClick(KEYS.MULTIPLY)}
         variant="orange"
       >
-        ✖️
+        <img className="w-6" src={multiply}/>
       </Button>
       <Button
         active={pressed.has(KEYS.NUMBER_4)}
@@ -83,11 +90,12 @@ const Keyboard = ({ onClick }: Props) => {
         6
       </Button>
       <Button
+        className="flex justify-center items-center"
         active={pressed.has(KEYS.SUBSTRACT)}
         onClick={() => onClick(KEYS.SUBSTRACT)}
         variant="orange"
       >
-        ➖
+        <img className="w-6" src={minus}/>
       </Button>
       <Button
         active={pressed.has(KEYS.NUMBER_1)}
@@ -108,11 +116,12 @@ const Keyboard = ({ onClick }: Props) => {
         3
       </Button>
       <Button
+        className="flex justify-center items-center"
         active={pressed.has(KEYS.ADD)}
         onClick={() => onClick(KEYS.ADD)}
         variant="orange"
       >
-        ➕
+        <img className="w-6" src={plus}/>
       </Button>
       <Button
         active={pressed.has(KEYS.NUMBER_0)}
@@ -128,11 +137,12 @@ const Keyboard = ({ onClick }: Props) => {
         ,
       </Button>
       <Button
+        className="flex justify-center items-center"
         active={pressed.has(KEYS.EQUALS)}
         onClick={() => onClick(KEYS.EQUALS)}
         variant="orange"
       >
-        🟰
+        <img className="w-6" src={equals}/>
       </Button>
     </div>
   );
